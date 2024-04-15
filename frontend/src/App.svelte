@@ -1,12 +1,14 @@
 <script>
   import { onMount } from "svelte";
   import Header from "./components/Header.svelte";
+  import CamerReader from "./components/Camer-Reader.svelte";
 
   onMount(async () => {});
 </script>
 
 <main>
   <Header></Header>
+  <CamerReader></CamerReader>
 </main>
 
 <style>
