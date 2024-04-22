@@ -1,0 +1,10 @@
+@baseUrl = http://127.0.0.1:5000/data
+#@baseUrl = lens-less.azurewebsites.net/data
+
+### send Data
+POST @{{baseUrl}} HTTP/1.1
+Content-Type: application/json
+
+{
+    "Timestamp": "jetzt"
+}
