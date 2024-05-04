@@ -6,6 +6,12 @@ Content-Type: application/json
     "Timestamp": "jetzt"
 }
 
+### upload picture
+POST http://127.0.0.1:5000/picture HTTP/1.1
+
+### download picture
+GET http://127.0.0.1:5000/picture HTTP/1.1
+
 ### send Data PROD
 POST lens-less.azurewebsites.net/data HTTP/1.1
 Content-Type: application/json

@@ -50,7 +50,7 @@
     canvas.height = 480;
     document.body.appendChild(canvas);
     brightnessDisplay = document.querySelector("#brightness");
-    startCamera();
+    //startCamera();
   });
 
   onDestroy(() => {

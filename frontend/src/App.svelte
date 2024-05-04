@@ -3,12 +3,48 @@
   import Header from "./components/Header.svelte";
   import CamerReader from "./components/Camer-Reader.svelte";
 
+  let imageUrl = "";
+
+  let pictureId;
+
   onMount(async () => {});
+
+  function loadPicture() {
+    event.preventDefault();
+
+    fetch("/picture/" + pictureId)
+      .then((response) => {
+        if (!response.ok) {
+          alert("Kein Bild verfügbar mit dieser Nummer!");
+          throw new Error("No picture found: " + response.statusText);
+        }
+        console.log(response);
+        return response.blob();
+      })
+      .then((blob) => {
+        imageUrl = URL.createObjectURL(blob);
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error);
+      });
+  }
 </script>
 
 <main>
   <Header></Header>
   <CamerReader></CamerReader>
+  <form>
+    <input type="number" bind:value={pictureId} />
+    <button on:click={loadPicture}>Foto anzeigen</button>
+  </form>
+  {#if imageUrl}
+    <img
+      src={imageUrl}
+      alt="Fetched Image"
+      style="height: 200px; width: 300px;"
+    />
+    <!-- Directly bind src to imageUrl -->
+  {:else}{/if}
 </main>
 
 <style>
