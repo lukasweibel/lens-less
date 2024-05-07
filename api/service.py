@@ -14,7 +14,8 @@ def index():
 def postData():
     data = request.json
     print(data)
-    picture = generate_picture("Give me a picture of a disco roller in front of the ZHAW")
+    prompt = data.get('prompt', 'A red mouse')
+    picture = generate_picture(prompt)
     pictureId = upload_picture(picture)
     return {"received_data": data, "pictureId": pictureId}, 200
 
