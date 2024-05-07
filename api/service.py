@@ -2,6 +2,7 @@ import os
 from flask import Flask, Response, request
 from flask import Flask, send_from_directory
 from backend.blob_accessor import upload_picture, load_picture
+from backend.image_generation import generate_picture
 
 app = Flask(__name__, static_folder='./../frontend/public', static_url_path='')
 
@@ -13,7 +14,9 @@ def index():
 def postData():
     data = request.json
     print(data)
-    return {"received_data": data}, 200
+    picture = generate_picture("Give me a picture of a disco roller in front of the ZHAW")
+    pictureId = upload_picture(picture)
+    return {"received_data": data, "pictureId": pictureId}, 200
 
 @app.route('/picture', methods=['POST'])
 def uploadPicture():

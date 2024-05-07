@@ -63,8 +63,3 @@ def check_number_for_availability(number):
     except Exception as ex:
         print('Exception:')
         print(ex)
-
-    
-
-if __name__ == "__main__":
-    check_number_for_availability(210)
