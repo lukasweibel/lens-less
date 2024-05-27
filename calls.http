@@ -1,4 +1,4 @@
-### send Data DEV
+### send Data DEV New York
 POST http://127.0.0.1:5000/data HTTP/1.1
 Content-Type: application/json
 
@@ -8,6 +8,20 @@ Content-Type: application/json
     "temperature": 25,
     "brightness": 3,
     "population": 4,
+    "colorscheme": "colourfull",
+    "style": "futuristic"
+}
+
+### send Data DEV Zürich
+POST http://127.0.0.1:5000/data HTTP/1.1
+Content-Type: application/json
+
+{
+    "latitude": 47.3769,
+    "longitude": 8.5417,
+    "temperature": 25,
+    "brightness": 3,
+    "population": 3,
     "colorscheme": "colourfull",
     "style": "realistic"
 }
