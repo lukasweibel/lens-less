@@ -2,13 +2,14 @@
   import { onMount } from "svelte";
   import Header from "./components/Header.svelte";
   import CamerReader from "./components/Camer-Reader.svelte";
+  import History from "./components/History.svelte";
 
   let imageUrl = "";
-  let responseMessage = '';
-  let uploadStatus = '';
-  let downloadLink = '';
+  let responseMessage = "";
+  let uploadStatus = "";
+  let downloadLink = "";
   let file;
-  let pictureId; 
+  let pictureId;
   let sensorData = {
     latitude: 40.748817, // Beispielwert
     longitude: -73.985428, // Beispielwert
@@ -16,21 +17,21 @@
     brightness: 3, // Beispielwert (0-5)
     population: 4, // Beispielwert (0-5)
     colorscheme: "colourfull", // Beispielwert (blackwhite, colourfull)
-    style: "realistic" // Beispielwert (realistic, futuristic, vintage, drawing)
+    style: "realistic", // Beispielwert (realistic, futuristic, vintage, drawing)
   };
 
   async function generateImage() {
-    const response = await fetch('http://127.0.0.1:5000/data', {
-      method: 'POST',
+    const response = await fetch("http://127.0.0.1:5000/data", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(sensorData)
+      body: JSON.stringify(sensorData),
     });
     if (response.ok) {
       const data = await response.json();
       if (data.status === "success") {
-        pictureId = data.picture_id; 
+        pictureId = data.picture_id;
         imageUrl = `http://127.0.0.1:5000/picture/${pictureId}`;
         responseMessage = "Image generated successfully!";
       } else {
@@ -44,17 +45,17 @@
 
   async function uploadPicture() {
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append("file", file);
 
-    const response = await fetch('http://127.0.0.1:5000/picture', {
-      method: 'POST',
-      body: formData
+    const response = await fetch("http://127.0.0.1:5000/picture", {
+      method: "POST",
+      body: formData,
     });
     if (response.ok) {
       const data = await response.json();
       uploadStatus = data.status;
       if (data.status === "success") {
-        pictureId = data.picture_id; 
+        pictureId = data.picture_id;
         imageUrl = `http://127.0.0.1:5000/picture/${data.picture_id}`;
       }
     } else {
@@ -63,8 +64,8 @@
   }
 
   async function downloadPicture() {
-    const response = await fetch('http://127.0.0.1:5000/picture', {
-      method: 'GET'
+    const response = await fetch("http://127.0.0.1:5000/picture", {
+      method: "GET",
     });
     if (response.ok) {
       const blob = await response.blob();
@@ -102,8 +103,13 @@
     <button on:click={loadPicture}>Foto anzeigen</button>
   </form>
   {#if imageUrl}
-    <img src={imageUrl} alt="Fetched Image" style="height: 200px; width: 300px;" />
+    <img
+      src={imageUrl}
+      alt="Fetched Image"
+      style="height: 200px; width: 300px;"
+    />
   {/if}
+  <History></History>
 </main>
 
 <style>
