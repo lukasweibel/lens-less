@@ -18,7 +18,8 @@ def generate_picture(prompt):
         "model":"dall-e-3",
         "prompt": prompt,
         "n": 1,  # Number of images to generate
-        "size": "1024x1024"
+        "size": "1024x1792",
+        "quality": "hd",
     }
 
     # Adjusted to the potentially new endpoint for DALL-E 3
