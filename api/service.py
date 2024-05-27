@@ -1,10 +1,13 @@
-import os
 import json
-from flask import Flask, Response, request
+import os
+
 from flask import Flask, send_from_directory
+from flask import Response, request
+
 from backend.blob_accessor import upload_picture, load_picture
 from backend.image_generation import generate_picture
 from backend.mongodb_accessor import add_entry_to_db, get_all_entries
+from backend.prompt_generation import create_prompt
 
 app = Flask(__name__, static_folder='./../frontend/public', static_url_path='')
 
@@ -39,22 +42,6 @@ def getHistory():
     data = json.dumps(get_all_entries())  # Serialize data to a JSON formatted string
     return Response(data.encode('utf-8'), mimetype='application/json')
 
-def create_prompt(sensor_data):
-    latitude = sensor_data.get("latitude")
-    longitude = sensor_data.get("longitude")
-    temperature = sensor_data.get("temperature")
-    brightness = sensor_data.get("brightness")
-    population = sensor_data.get("population")
-    colorscheme = sensor_data.get("colorscheme")
-    style = sensor_data.get("style")
-    
-    prompt = (
-        f"Create a {style} image with a {colorscheme} color scheme. "
-        f"The scene should represent a location at latitude {latitude} and longitude {longitude}. "
-        f"The current temperature is {temperature}°C, with a brightness level of {brightness} and a population density of {population}. "
-        f"The image should look as if it was taken by a camera at this location, capturing the realistic essence of the environment and conditions."
-    )
-    return prompt
 
 if __name__ == '__main__':
     app.run(debug=True, port=80)

@@ -9,7 +9,7 @@ Content-Type: application/json
     "brightness": 3,
     "population": 4,
     "colorscheme": "colourfull",
-    "style": "vintage"
+    "style": "realistic"
 }
 
 ### send Data DEV Zürich
@@ -24,6 +24,21 @@ Content-Type: application/json
     "population": 3,
     "colorscheme": "colourfull",
     "style": "futuristic"
+}
+
+
+### send Data DEV Winterthur
+POST http://127.0.0.1:5000/data HTTP/1.1
+Content-Type: application/json
+
+{
+  "latitude":  47.499950,
+  "longitude": 8.737565,
+  "temperature": 35,
+  "brightness": 1,
+  "population": 3,
+  "colorscheme": "colourfull",
+  "style": "realistic"
 }
 
 ### get History
