@@ -3,6 +3,7 @@ from flask import Flask, Response, request
 from flask import Flask, send_from_directory
 from backend.blob_accessor import upload_picture, load_picture
 from backend.image_generation import generate_picture
+from backend.mongodb_accessor import add_entry_to_db
 
 app = Flask(__name__, static_folder='./../frontend/public', static_url_path='')
 
@@ -15,6 +16,7 @@ def postData():
     data = request.json
     print(data)
     prompt = create_prompt(data)
+    add_entry_to_db(prompt)
     print(prompt)
     picture = generate_picture(prompt)
     pictureId = upload_picture(picture)

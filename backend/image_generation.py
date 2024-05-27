@@ -41,9 +41,3 @@ def generate_picture(prompt):
         print("Failed to generate image")
         print(response.text)
         return None
-
-# Example usage:
-# image_bytes = generate_picture("A picture of a futuristic city at sunset")
-# if image_bytes:
-#     with open("output_image.png", 'wb') as f:
-#         f.write(image_bytes)
