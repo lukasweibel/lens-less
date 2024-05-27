@@ -4,12 +4,76 @@
   import CamerReader from "./components/Camer-Reader.svelte";
 
   let imageUrl = "";
+  let responseMessage = '';
+  let uploadStatus = '';
+  let downloadLink = '';
+  let file;
+  let pictureId; 
+  let sensorData = {
+    latitude: 40.748817, // Beispielwert
+    longitude: -73.985428, // Beispielwert
+    temperature: 25, // Beispielwert
+    brightness: 3, // Beispielwert (0-5)
+    population: 4, // Beispielwert (0-5)
+    colorscheme: "colourfull", // Beispielwert (blackwhite, colourfull)
+    style: "realistic" // Beispielwert (realistic, futuristic, vintage, drawing)
+  };
 
-  let pictureId;
+  async function generateImage() {
+    const response = await fetch('http://127.0.0.1:5000/data', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(sensorData)
+    });
+    if (response.ok) {
+      const data = await response.json();
+      if (data.status === "success") {
+        pictureId = data.picture_id; 
+        imageUrl = `http://127.0.0.1:5000/picture/${pictureId}`;
+        responseMessage = "Image generated successfully!";
+      } else {
+        responseMessage = data.message || "Failed to generate image.";
+      }
+    } else {
+      const data = await response.json();
+      responseMessage = data.message || "Failed to generate image.";
+    }
+  }
 
-  onMount(async () => {});
+  async function uploadPicture() {
+    const formData = new FormData();
+    formData.append('file', file);
 
-  function loadPicture() {
+    const response = await fetch('http://127.0.0.1:5000/picture', {
+      method: 'POST',
+      body: formData
+    });
+    if (response.ok) {
+      const data = await response.json();
+      uploadStatus = data.status;
+      if (data.status === "success") {
+        pictureId = data.picture_id; 
+        imageUrl = `http://127.0.0.1:5000/picture/${data.picture_id}`;
+      }
+    } else {
+      uploadStatus = "Upload failed.";
+    }
+  }
+
+  async function downloadPicture() {
+    const response = await fetch('http://127.0.0.1:5000/picture', {
+      method: 'GET'
+    });
+    if (response.ok) {
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      downloadLink = url;
+    }
+  }
+
+  function loadPicture(event) {
     event.preventDefault();
 
     fetch("/picture/" + pictureId)
@@ -38,13 +102,8 @@
     <button on:click={loadPicture}>Foto anzeigen</button>
   </form>
   {#if imageUrl}
-    <img
-      src={imageUrl}
-      alt="Fetched Image"
-      style="height: 200px; width: 300px;"
-    />
-    <!-- Directly bind src to imageUrl -->
-  {:else}{/if}
+    <img src={imageUrl} alt="Fetched Image" style="height: 200px; width: 300px;" />
+  {/if}
 </main>
 
 <style>
@@ -95,22 +154,13 @@
   }
 
   p {
-    color: #28a745; /* Green color for success messages */
+    color: #28a745;
     margin-top: 20px;
   }
 
-  @media (min-width: 640px) {
-    main {
-      max-width: 400px;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    /* Adjusted for laptop screens */
-    main {
-      max-width: 600px; /* Wider form on larger screens */
-      padding: 3em; /* More padding for better aesthetics */
-      margin: 50px auto; /* Increased vertical margin */
-    }
+  img {
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
   }
 </style>

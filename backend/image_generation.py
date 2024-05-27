@@ -1,13 +1,12 @@
 import os
-from dotenv import load_dotenv
 import requests
-from io import BytesIO
+from dotenv import load_dotenv
 
+# Load environment variables
 load_dotenv()
 
+# Retrieve the OpenAI API key from environment variables
 openai_api_key = os.getenv("OPENAI_API_KEY")
-
-import requests
 
 def generate_picture(prompt):
     headers = {
@@ -16,15 +15,18 @@ def generate_picture(prompt):
     }
 
     data = {
+        "model":"dall-e-3",
         "prompt": prompt,
         "n": 1,  # Number of images to generate
-        "size": "1024x1024"  # Image size
+        "size": "1024x1024"
     }
 
+    # Adjusted to the potentially new endpoint for DALL-E 3
     response = requests.post('https://api.openai.com/v1/images/generations', headers=headers, json=data)
 
     if response.status_code == 200:
         print("Image generated successfully!")
+        # Correctly access the image URL if the response structure has changed
         image_url = response.json()['data'][0]['url']
 
         # Download the image
@@ -40,5 +42,8 @@ def generate_picture(prompt):
         print(response.text)
         return None
 
-        
-#generate_picture("Give me a picture of a pink Elephant")
+# Example usage:
+# image_bytes = generate_picture("A picture of a futuristic city at sunset")
+# if image_bytes:
+#     with open("output_image.png", 'wb') as f:
+#         f.write(image_bytes)
