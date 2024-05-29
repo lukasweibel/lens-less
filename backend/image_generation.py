@@ -18,7 +18,7 @@ def generate_picture(prompt):
         "model": "dall-e-3",
         "prompt": prompt,
         "n": 1,  # Number of images to generate
-        "size": "1024x1792",
+        "size": "1024x1024",
         "quality": "hd",
         "style": "natural"
     }

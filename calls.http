@@ -5,9 +5,9 @@ Content-Type: application/json
 {
     "latitude": 40.748817,
     "longitude": -73.985428,
-    "temperature": 25,
+    "temperature": -15,
     "brightness": 3,
-    "population": 4,
+    "population": 0,
     "colorscheme": "colourfull",
     "style": "realistic"
 }
@@ -64,7 +64,7 @@ Content-Type: application/json
 {
   "latitude": 48.8588852,
   "longitude": 2.2933869,
-  "temperature": 15,
+  "temperature": 40,
   "brightness": 3,
   "population": 6,
   "colorscheme": "Normal",
@@ -79,7 +79,7 @@ Content-Type: application/json
 {
   "latitude":  47.499950,
   "longitude": 8.737565,
-  "temperature": 35,
+  "temperature": -10,
   "brightness": 3,
   "population": 6,
   "colorscheme": "BlackAndWhite",
@@ -111,9 +111,9 @@ Content-Type: application/json
 {
     "latitude": 47.3769,
     "longitude": 8.5417,
-    "temperature": 25,
+    "temperature": -25,
     "brightness": 3,
     "population": 3,
     "colorscheme": "colourfull",
-    "style": "realistic"
+    "style": "futuristic"
 }

@@ -24,7 +24,7 @@ population_map = {
 }
 
 
-def create_prompt(sensor_data):
+def create_prompt_from_data(sensor_data):
     latitude = sensor_data.get("latitude")
     longitude = sensor_data.get("longitude")
     location = get_location_name(latitude, longitude)
@@ -44,6 +44,21 @@ def create_prompt(sensor_data):
         f"Incorporate realistic geographic features, vegetation, architecture, and any other elements characteristic of this place. "
         f"Ensure the atmosphere and lighting are true to the specified conditions, "
         f"so the image reflects the genuine feel and appearance of the location at this time."
+    )
+    return prompt
+
+def create_prompt_from_feedback(feedback, original_prompt):
+    prompt = (
+        f"Below you'll find a prompt with which you already have drawn a picture:"
+        f"\n"
+        f"\n"
+        f"{original_prompt}"
+        f"\n"
+        f"\n"
+        f"The user has now the following feedback to your old picture. Draw a new picture from the old prompt but also consider the feedback:"
+        f"\n"
+        f"\n"
+        f"{feedback}"
     )
     return prompt
 

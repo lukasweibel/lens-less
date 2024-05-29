@@ -21,7 +21,7 @@ class CustomJSONEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, datetime):
             return obj.isoformat()
-        elif isinstance(obj, ObjectId):  # MongoDB ObjectId is also not serializable by default
+        elif isinstance(obj, ObjectId):
             return str(obj)
         return super().default(obj)
 
@@ -34,9 +34,13 @@ def add_entry_to_db(prompt, picture_id, original_data):
     }
     collection.insert_one(document)
     print("Entry added to database.")
+    
+def get_entry_by_picture_id(picture_id):
+    query = {"pictureId": int(picture_id)}
+    document = collection.find_one(query)
+    return document
 
 def get_all_entries():
     documents = collection.find({})
     documents_list = list(documents)
-    # Encode directly within the function to ensure all data is properly handled
     return json.dumps(documents_list, cls=CustomJSONEncoder)

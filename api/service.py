@@ -6,8 +6,8 @@ from flask import Response, request
 
 from backend.blob_accessor import upload_picture, load_picture
 from backend.image_generation import generate_picture
-from backend.mongodb_accessor import add_entry_to_db, get_all_entries
-from backend.prompt_generation import create_prompt
+from backend.mongodb_accessor import add_entry_to_db, get_all_entries, get_entry_by_picture_id
+from backend.prompt_generation import create_prompt_from_data, create_prompt_from_feedback
 
 app = Flask(__name__, static_folder='./../frontend/public', static_url_path='')
 
@@ -19,7 +19,7 @@ def index():
 def postData():
     data = request.json
     print(data)
-    prompt = create_prompt(data)
+    prompt = create_prompt_from_data(data)
     picture = generate_picture(prompt)
     pictureId = upload_picture(picture)
     add_entry_to_db(prompt, pictureId, data)
@@ -37,11 +37,22 @@ def uploadPicture():
 def downloadPicture(pictureId):
     return Response(load_picture(pictureId+'.png') , mimetype='image/png')
 
+@app.route('/feedback/<pictureId>', methods=['POST'])
+def feedbackOnPicture(pictureId):
+    data = request.json
+    document = get_entry_by_picture_id(pictureId)
+    original_prompt = document.get("prompt", "Prompt not found")
+    prompt = create_prompt_from_feedback(data.get("feedback"), original_prompt)
+    print(prompt)
+    picture = generate_picture(prompt)
+    newPictureId = upload_picture(picture)
+    #newPictureId = 9889
+    return {"received_data": data, "pictureId": newPictureId}, 200
+
 @app.route('/history', methods=['GET'])
 def getHistory():
-    data = json.dumps(get_all_entries())  # Serialize data to a JSON formatted string
+    data = json.dumps(get_all_entries())
     return Response(data.encode('utf-8'), mimetype='application/json')
-
 
 if __name__ == '__main__':
     app.run(debug=True, port=80)

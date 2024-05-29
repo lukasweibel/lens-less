@@ -1,6 +1,6 @@
+<!-- MainPage.svelte -->
 <script>
   import { onMount } from "svelte";
-  import History from "./components/History.svelte";
   import FeedbackForm from "./components/FeedbackForm.svelte";
 
   let imageUrl = "";
@@ -15,7 +15,6 @@
           alert("Kein Bild verfügbar mit dieser Nummer!");
           throw new Error("No picture found: " + response.statusText);
         }
-        console.log(response);
         return response.blob();
       })
       .then((blob) => {
@@ -28,12 +27,6 @@
 </script>
 
 <main>
-  <nav>
-    <div class="navbar">
-      <h1>Lens less</h1>
-      <a href="#history">History</a>
-    </div>
-  </nav>
   <form>
     <input type="number" bind:value={pictureId} />
     <button on:click={loadPicture}>Foto anzeigen</button>
@@ -44,21 +37,9 @@
       <img src={imageUrl} alt="Fetched Image" class="fetched-image" />
     </div>
   {/if}
-
-  <div id="history">
-    <History></History>
-  </div>
 </main>
 
 <style>
-  html,
-  body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
-  }
-
   main {
     text-align: center;
     padding: 1em;
@@ -70,41 +51,6 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-  }
-
-  nav {
-    width: 100%;
-    background-color: #0056b3;
-    padding: 1em 0;
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
-    flex-shrink: 0;
-  }
-
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1em;
-  }
-
-  .navbar h1 {
-    color: #ffffff;
-    margin: 0;
-  }
-
-  .navbar a {
-    color: #ffffff;
-    text-decoration: none;
-    padding: 0.5em 1em;
-    background-color: #003875;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-  }
-
-  .navbar a:hover {
-    background-color: #00264d;
   }
 
   form {
@@ -163,10 +109,5 @@
     border-radius: 4px;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
     display: block;
-  }
-
-  #history {
-    padding: 2em 0;
-    flex-shrink: 0;
   }
 </style>
