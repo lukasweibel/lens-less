@@ -39,7 +39,7 @@
   }
 </script>
 
-<h1>Feedback Form</h1>
+<p>Schreiben mir, was ich am Bild verändern soll</p>
 <form>
   <input type="text" bind:value={feedbackText} required />
   <button on:click={sendFeedback} disabled={isSubmitting}

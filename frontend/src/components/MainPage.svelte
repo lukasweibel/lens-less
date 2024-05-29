@@ -1,7 +1,5 @@
-<!-- MainPage.svelte -->
 <script>
-  import { onMount } from "svelte";
-  import FeedbackForm from "./components/FeedbackForm.svelte";
+  import FeedbackForm from "./FeedbackForm.svelte";
 
   let imageUrl = "";
   let pictureId;
