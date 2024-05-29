@@ -35,8 +35,8 @@ Content-Type: application/json
   "latitude":  47.499950,
   "longitude": 8.737565,
   "temperature": 35,
-  "brightness": 1,
-  "population": 3,
+  "brightness": 6,
+  "population": 6,
   "colorscheme": "colourfull",
   "style": "realistic"
 }
