@@ -1,6 +1,7 @@
 import os
 
 import requests
+geocode_api_key = os.getenv("GEOCODE_API_KEY")
 
 brightness_map = {
     0: "The picture captured an environment enveloped in pitch black darkness, as if it were a moonless night.",
@@ -44,11 +45,9 @@ def create_prompt(sensor_data):
         f"Ensure the atmosphere and lighting are true to the specified conditions, "
         f"so the image reflects the genuine feel and appearance of the location at this time."
     )
-    print(prompt)
     return prompt
 
 
-geocode_api_key = os.getenv("GEOCODE_API_KEY")
 def get_location_name(latitude, longitude):
     url = f'https://api.opencagedata.com/geocode/v1/json?q={latitude}+{longitude}&key={geocode_api_key}'
 

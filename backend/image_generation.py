@@ -1,11 +1,11 @@
 import os
+
 import requests
 from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
 
-# Retrieve the OpenAI API key from environment variables
 openai_api_key = os.getenv("OPENAI_API_KEY")
 
 def generate_picture(prompt):
@@ -15,12 +15,12 @@ def generate_picture(prompt):
     }
 
     data = {
-        "model":"dall-e-3",
+        "model": "dall-e-3",
         "prompt": prompt,
         "n": 1,  # Number of images to generate
         "size": "1024x1792",
         "quality": "hd",
-        "style":"vivid"
+        "style": "natural"
     }
 
     # Adjusted to the potentially new endpoint for DALL-E 3
