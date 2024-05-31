@@ -4,6 +4,7 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 from datetime import datetime
 from bson import ObjectId
+from pymongo import DESCENDING
 
 load_dotenv()
 
@@ -41,6 +42,6 @@ def get_entry_by_picture_id(picture_id):
     return document
 
 def get_all_entries():
-    documents = collection.find({})
+    documents = collection.find({}).sort('created', DESCENDING)
     documents_list = list(documents)
     return json.dumps(documents_list, cls=CustomJSONEncoder)

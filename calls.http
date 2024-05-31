@@ -5,10 +5,10 @@ Content-Type: application/json
 {
     "latitude": 40.748817,
     "longitude": -73.985428,
-    "temperature": -15,
-    "brightness": 3,
-    "population": 0,
-    "colorscheme": "colourfull",
+    "temperature": -20,
+    "brightness": 4,
+    "population": 4,
+    "colorscheme": "Normal",
     "style": "realistic"
 }
 
@@ -104,16 +104,16 @@ Content-Type: application/json
 ### get History
 GET http://127.0.0.1:5000/history HTTP/1.1
 
-### send Data PROD
+### send Data PROD simply the best
 POST https://lens-less.azurewebsites.net/data HTTP/1.1
 Content-Type: application/json
 
 {
     "latitude": 47.3769,
     "longitude": 8.5417,
-    "temperature": -15,
+    "temperature": -7,
     "brightness": 3,
     "population": 3,
-    "colorscheme": "colourfull",
+    "colorscheme": "Normal",
     "style": "realistic"
 }

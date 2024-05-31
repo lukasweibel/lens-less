@@ -1,4 +1,3 @@
-import json
 import os
 
 from flask import Flask, jsonify, send_from_directory
@@ -41,12 +40,13 @@ def downloadPicture(pictureId):
 def feedbackOnPicture(pictureId):
     data = request.json
     document = get_entry_by_picture_id(pictureId)
+    sensor_data = document.get("originalData", "Data not found")
     original_prompt = document.get("prompt", "Prompt not found")
     prompt = create_prompt_from_feedback(data.get("feedback"), original_prompt)
     print(prompt)
     picture = generate_picture(prompt)
     newPictureId = upload_picture(picture)
-    #newPictureId = 9889
+    add_entry_to_db(prompt, newPictureId, sensor_data)
     return {"received_data": data, "pictureId": newPictureId}, 200
 
 @app.route('/history', methods=['GET'])

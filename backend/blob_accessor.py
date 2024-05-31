@@ -44,13 +44,10 @@ def load_picture(name):
     
 def check_number_for_availability(number):
     try:
-        # Create a blob service client to interact with the blob service
         blob_service_client = BlobServiceClient.from_connection_string(azure_connection_string)
 
-        # Get a client to interact with the specified container
         container_client = blob_service_client.get_container_client(container_name)
 
-        # List all blobs in the container and print their names
         print("Listing blobs in container:", container_name)
         blob_list = container_client.list_blobs()
         for blob in blob_list:
