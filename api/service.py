@@ -1,7 +1,7 @@
 import json
 import os
 
-from flask import Flask, send_from_directory
+from flask import Flask, jsonify, send_from_directory
 from flask import Response, request
 
 from backend.blob_accessor import upload_picture, load_picture
@@ -51,8 +51,8 @@ def feedbackOnPicture(pictureId):
 
 @app.route('/history', methods=['GET'])
 def getHistory():
-    data = json.dumps(get_all_entries())
-    return Response(data.encode('utf-8'), mimetype='application/json')
+    data = get_all_entries()
+    return jsonify(data)
 
 if __name__ == '__main__':
     app.run(debug=True, port=80)
