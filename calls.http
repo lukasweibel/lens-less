@@ -33,7 +33,7 @@ Content-Type: application/json
 {
     "latitude": 47.39530,
     "longitude": 8.52969,
-    "temperature": 25,
+    "temperature": 40,
     "brightness": 4,
     "population": 6,
     "colorscheme": "Normal",
@@ -64,11 +64,11 @@ Content-Type: application/json
 {
   "latitude": 48.8588852,
   "longitude": 2.2933869,
-  "temperature": 40,
-  "brightness": 3,
-  "population": 6,
+  "temperature": -5,
+  "brightness": 6,
+  "population": 4,
   "colorscheme": "Normal",
-  "style": "realistic"
+  "style": "futuristic"
 }
 
 
@@ -98,7 +98,7 @@ Content-Type: application/json
   "brightness": 4,
   "population": 6,
   "colorscheme": "Normal",
-  "style": "drawing"
+  "style": "futuristic"
 }
 
 ### get History
@@ -111,9 +111,9 @@ Content-Type: application/json
 {
     "latitude": 47.3769,
     "longitude": 8.5417,
-    "temperature": -25,
+    "temperature": -15,
     "brightness": 3,
     "population": 3,
     "colorscheme": "colourfull",
-    "style": "futuristic"
+    "style": "realistic"
 }
