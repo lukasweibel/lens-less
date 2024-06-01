@@ -1,6 +1,7 @@
 import os
 
 import requests
+
 geocode_api_key = os.getenv("GEOCODE_API_KEY")
 
 brightness_map = {
@@ -47,6 +48,7 @@ def create_prompt_from_data(sensor_data):
     )
     return prompt
 
+
 def create_prompt_from_feedback(feedback, original_prompt):
     prompt = (
         f"Below you'll find a prompt with which you already have drawn a picture:"
@@ -64,6 +66,9 @@ def create_prompt_from_feedback(feedback, original_prompt):
 
 
 def get_location_name(latitude, longitude):
+    if not latitude or not longitude or int(latitude) == 0 or int(longitude) == 0:
+        latitude = 47.49958
+        longitude = 8.72811
     url = f'https://api.opencagedata.com/geocode/v1/json?q={latitude}+{longitude}&key={geocode_api_key}'
 
     response = requests.get(url)
